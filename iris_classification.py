@@ -4,23 +4,17 @@ import scipy
 import matplotlib.pyplot as plt
 import csv 
 
-
-
-
 def main():
-    get_class_data()
-
-
-#can also read from the 3 separate files, one for each class, but now i have already separated training and test data
-#Get data from CSV file and load it into a np.ndarray
-def get_class_data():
     path = '/Users/oyvindmasdalbjaerum/SKOLEGREIER/EDK/training_first30.data'
+    values, labels = get_data(path)
+    print(values)
+    print(labels)
+
+#gets data from file and turns into one matrix for data and one for labels
+def get_data(path):
     values = np.loadtxt(path, delimiter=',', usecols=[0,1,2,3])
     labels = np.loadtxt(path, delimiter=',', usecols=[4], dtype = np.str)
-    print(values)
-
-
-
+    return values, labels
 
 
 #separate training data into 3 matrices, one for each class
