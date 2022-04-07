@@ -15,17 +15,11 @@ def main():
 #Get data from CSV file and load it into a np.ndarray
 def get_class_data():
     path = '/Users/oyvindmasdalbjaerum/SKOLEGREIER/EDK/training_first30.data'
-    #data is matrix of N x l + 1, where N is number of samples, l is feature vector length and an extra column for classification in string form
-    data = np.loadtxt(path,
-    dtype={'names': ('sepal length', 'sepal width', 'petal length', 'petal width', 'label'),
-          'formats': (np.float, np.float, np.float, np.float, '|S15')},
-    delimiter=',', skiprows=0)
+    values = np.loadtxt(path, delimiter=',', usecols=[0,1,2,3])
+    labels = np.loadtxt(path, delimiter=',', usecols=[4], dtype = np.str)
+    print(values)
 
-    print(data)
 
-#Workaround:
-#values = np.loadtxt('data', delimiter=',', usecols=[0,1,2,3])
-#labels = np.loadtxt('data', delimiter=',', usecols=[4])
 
 
 
