@@ -1,52 +1,23 @@
-from gc import get_referents
-import math as m
 import numpy as np
-#import scipy
-import matplotlib.pyplot as plt
-#import csv 
-from sklearn import preprocessing
-from sklearn.linear_model import Perceptron
-from sklearn.datasets import load_digits
 from sklearn.metrics import confusion_matrix
+from sklearn import preprocessing
+
 
 def main():
-    path = '/Users/oyvindmasdalbjaerum/SKOLEGREIER/EDK/training_first30.data'
+    path = '/Users/oyvindmasdalbjaerum/SKOLEGREIER/EDK/training_last30.data.txt'
     data, labels = get_data(path)
     targets = get_target_mat(labels)
     W = init_random_weights(data, labels)
     alpha = 0.75
     norm_data = normalize_data_mat(data)
     X = get_X_from_values(norm_data)
-    X_init = get_X_from_values(data)
-    #print(X)
-    #print(X.shape)
 
     for i in range(0, 100000):
         G = get_discriminant_vec(W, X)
         mse_grad = calculate_mse_gradient(G, targets, X)
-
         W = W - alpha * mse_grad
 
-        #print("iteration")
-        #print(i)
-        #print(W)
-
-   
-    predicted_values = get_predicted_values(W, X)
-    true_values = get_targets(labels)
-    conf_matrix = get_conf_matrix(predicted_values, true_values)
-
-    error_rate = get_error_rate(conf_matrix)
-    print(error_rate)
-
-
-
-
- 
-
-
-
-
+    np.savetxt('trainedonlast30.txt', W)
 
 #gets data from file and turns into one matrix for data and one for labels
 def get_data(path):
@@ -93,55 +64,16 @@ def get_discriminant_vec(W, X):
     return sigmoid_on_matrix(z)
 
 def get_X_from_values(values):
-    X = np.c_[values, np.ones((90, 1))] #this last row is for biases to be multiplied with 1 and not a feature
+    X = np.c_[values, np.ones((len(values[:,0]), 1))] #this last row is for biases to be multiplied with 1 and not a feature
     return X
-
+#this is our loss function
 def sigmoid_on_matrix(z):
     return 1 / (1 + np.exp(-z))
 
 def calculate_mse_gradient(G, targets, X):
     new_matrix = (G - targets.T) * G * (1-G)
-
     W_new = new_matrix @ X
     return W_new
-
-def get_predicted_values(W, X):
-    G_final = W @ X.T
-    predicted_values = np.argmax(G_final, axis=0)
-    return predicted_values
-
-
-
-def get_conf_matrix(pred, true):
-    print(pred)
-    print((np.unique(pred)))
-    conf_matrix = np.zeros((len(np.unique(pred)), len(np.unique(pred))))
-    conf_matrix = confusion_matrix(true, pred)
-    print(conf_matrix)
-    return conf_matrix
-
-def get_error_rate(conf_matrix):
-    dia = np.diag_indices(len(conf_matrix[0]))
-    dia_sum = sum(conf_matrix[dia])
-    off_dia_sum = np.sum(conf_matrix) - dia_sum
-    return off_dia_sum/np.sum(conf_matrix)
-
-
-
-
-#Make weights for the single layer of neurons
-
-#Activation function
-
-#iterate with a step factor alpha
-
-#Print out performance of classifier
-
-#Save weights to text file
-
-#I will do a separate file for testing the classifier
-
-
 
 if __name__ == '__main__':
     main()
