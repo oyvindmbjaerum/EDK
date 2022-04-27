@@ -5,8 +5,8 @@ from iris_classification import *
 #File names for testing (working on macos)
 #training_first30.data
 #test_last20.data
-#training_last30.data.txt
-#testing_first20.data.txt
+#training_last30.data
+#testing_first20.data
 
 #File names for classifiers
 #trainedonfirst30.txt

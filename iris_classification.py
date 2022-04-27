@@ -5,7 +5,7 @@ from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 
 #Working filenames for training data in macos
-#training_last30.data.txt
+#training_last30.data
 #training_first30.data
 
 
