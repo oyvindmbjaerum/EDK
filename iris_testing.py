@@ -2,10 +2,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 from iris_classification import *
 
+#File names for testing (working on macos)
+#training_first30.data
+#test_last20.data
+#training_last30.data.txt
+#testing_first20.data.txt
+
+#File names for classifiers
+#trainedonfirst30.txt
+#trainedonlast30.txt
+#trainedon3features.txt
+#trainedon2features.txt
+#trainedon1features.txt
 
 def main():
-    weight_path = "/Users/oyvindmasdalbjaerum/SKOLEGREIER/EDK/trainedonlast30.txt"
-    testing_data_path = "/Users/oyvindmasdalbjaerum/SKOLEGREIER/EDK/testing_first20.data.txt"
+    weight_path = "/Users/oyvindmasdalbjaerum/SKOLEGREIER/EDK/trainedonfirst30.txt"
+    testing_data_path = "test_last20.data"
 
     data, labels = get_data(testing_data_path)
     W = get_weight_from_path(weight_path)

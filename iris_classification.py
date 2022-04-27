@@ -1,27 +1,36 @@
 import numpy as np
 from sklearn.metrics import confusion_matrix
 from sklearn import preprocessing
+from sklearn.metrics import mean_squared_error
+import matplotlib.pyplot as plt
+
+#Working filenames for training data in macos
+#training_last30.data.txt
+#training_first30.data
 
 
 def main():
-    path = '/Users/oyvindmasdalbjaerum/SKOLEGREIER/EDK/training_last30.data.txt'
+    path = 'training_first30.data'
     data, labels = get_data(path)
     targets = get_target_mat(labels)
     W = init_random_weights(data, labels)
-    alpha = 0.75
+    alpha = 0.25
     norm_data = normalize_data_mat(data)
     X = get_X_from_values(norm_data)
+    iterations = 100000
 
-    for i in range(0, 100000):
+    for i in range(0, iterations):
         G = get_discriminant_vec(W, X)
         mse_grad = calculate_mse_gradient(G, targets, X)
         W = W - alpha * mse_grad
+ 
+    np.savetxt('trainedonfirst30.txt', W)
+    
 
-    np.savetxt('trainedonlast30.txt', W)
-
+#Column 1 has most overlap, then 0, then 2
 #gets data from file and turns into one matrix for data and one for labels
 def get_data(path):
-    values = np.loadtxt(path, delimiter=',', usecols=[0, 1, 2,3])
+    values = np.loadtxt(path, delimiter=',', usecols=[0, 1, 2, 3], ndmin = 2) #when reading only one column, we need to force it into a 2d-array
     labels = np.loadtxt(path, delimiter=',', usecols=[4], dtype = str)
     return values, labels
 
@@ -74,6 +83,10 @@ def calculate_mse_gradient(G, targets, X):
     new_matrix = (G - targets.T) * G * (1-G)
     W_new = new_matrix @ X
     return W_new
+def calculate_mse(G, target_mat):
+    mse = mse = mean_squared_error(G, target_mat.T)
+    return mse
+
 
 if __name__ == '__main__':
     main()
