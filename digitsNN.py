@@ -2,6 +2,7 @@ import numpy as np
 from sklearn.metrics import confusion_matrix
 from scipy.io import loadmat
 import matplotlib.pyplot as plt
+import time
 from iris_testing import *
 
 
@@ -15,33 +16,28 @@ from iris_testing import *
 #testlab   -> labels of test set
 
 def main():
-
+    start_time = time.time()
     mat_file = loadmat("/Users/oyvindmasdalbjaerum/SKOLEGREIER/EDK/data_all.mat")
 
-    chunk_size = 1000
+    chunk_size = 100
     chunked_test_values = split_test_set_into_chunks(mat_file["testv"], chunk_size)
-    
-    print( mat_file["testv"][3088][96])
-    print(chunked_test_values[3][88][96])
 
-    pred_mat = np.zeros( chunked_test_values.shape[1])
-    print(pred_mat.shape)
-
-    for j in range(0, chunked_test_values.shape[1]):
-        distance_vector = calc_euclidean_distances(chunked_test_values[0][j], mat_file["trainv"])
-        pred, index = find_nearest_neighbour(distance_vector, mat_file["trainlab"])
-        pred_mat[j] = pred
-        print(pred, index)
-
+    pred_mat, index_mat = calc_nearest_neighbour_for_chunk(chunked_test_values[0], mat_file["trainv"], mat_file["trainlab"])
     
     conf_mat = get_conf_matrix(pred_mat, mat_file["testlab"][:chunk_size, :])
     print(conf_mat)
     error_rate = get_error_rate(conf_mat)
     print(error_rate)
-    image = chunked_test_values[0][0]
-    image.reshape((28, 28))
-    fig = plt.figure()
-    plt.imshow(image, cmap='gray_r')
+    
+    #wrongly classified images
+    plot_test_sample_and_nearest_neighbour(chunked_test_values[0][1], mat_file["trainv"][index_mat[1]],mat_file["trainlab"][index_mat[1]], mat_file["testlab"][1])
+    plot_test_sample_and_nearest_neighbour(chunked_test_values[0][8], mat_file["trainv"][index_mat[8]], mat_file["trainlab"][index_mat[8]], mat_file["testlab"][8])
+
+    #correctly classified images
+    plot_test_sample_and_nearest_neighbour(chunked_test_values[0][0], mat_file["trainv"][index_mat[0]], mat_file["trainlab"][index_mat[0]], mat_file["testlab"][0])
+    plot_test_sample_and_nearest_neighbour(chunked_test_values[0][3], mat_file["trainv"][index_mat[3]], mat_file["trainlab"][index_mat[3]], mat_file["testlab"][3])
+    
+    print("EXECUTION TIME: ", (time.time() - start_time))
     plt.show()
 
 
@@ -65,6 +61,36 @@ def calc_euclidean_distances(test_value, trainingv):
 def find_nearest_neighbour(distance_vector, trainlab):
     prediction = trainlab[np.argmin(distance_vector)]
     return prediction, np.argmin(distance_vector)
+
+
+def plot_test_sample_and_nearest_neighbour(test_value, nearest_neighbour, nn_label, testlabel):
+    image = np.reshape(test_value, (28, 28))
+    plt.figure()
+    plt.imshow(image, cmap='gray_r')
+    #prediction = "".join(["Label: ", str(testlabel)])
+    #plt.title(prediction)
+    plt.draw()
+
+    plt.figure()
+    nearest_image = nearest_neighbour
+    nearest_image = np.reshape(nearest_image, (28, 28))
+    #label = "".join(["Nearest neighbour: ", str(nn_label)])
+    #plt.title(label)
+    plt.imshow(nearest_image, cmap='gray_r')
+    plt.draw()
+
+def calc_nearest_neighbour_for_chunk(chunk, trainv, trainlab):
+    pred_mat = np.zeros( chunk.shape[0], dtype = 'int32')
+    index_mat =  np.zeros( chunk.shape[0], dtype = 'int32')
+    for j in range(0, chunk.shape[0]):
+        distance_vector = calc_euclidean_distances(chunk[j], trainv)
+        pred, index = find_nearest_neighbour(distance_vector, trainlab)
+        #print(pred, index)
+        pred_mat[j] = pred
+        index_mat[j] = index
+
+    return pred_mat, index_mat
+
 
 
 if __name__ == '__main__':
