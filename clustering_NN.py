@@ -6,21 +6,15 @@ from sklearn.cluster import KMeans
 from scipy.io import loadmat
 import matplotlib.pyplot as plt
 import time
-from sklearn_NN import *
+from NNclassifier import *
 
 def main():
     start_time = time.time()
     mat_file = loadmat("/Users/oyvindmasdalbjaerum/SKOLEGREIER/EDK/data_all.mat")
     num_clusters = 64
     classes = separate_training_values(mat_file["trainv"], mat_file["trainlab"])
-    #zeros, ones, twos, threes, fours, fives, sixes, sevens, eights, nines 
     
-    #there are not 6000 samples from each class as stated in the second part of the task
-    print(classes[0].shape)
-    print(classes[0].shape[0] + classes[1].shape[0] + classes[2].shape[0] + classes[3].shape[0] + classes[4].shape[0] + classes[5].shape[0] + classes[6].shape[0] + classes[7].shape[0] +classes[8].shape[0] + classes[9].shape[0] )
-
     clustered_training_values = get_clustered_training_values(classes, num_clusters)
-
     clustered_trainging_labels = generate_clustered_training_labels(clustered_training_values, np.unique(mat_file["trainlab"]))
   
     pred_time = time.time()
