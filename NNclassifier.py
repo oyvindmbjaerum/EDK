@@ -1,7 +1,6 @@
 from sklearn.neighbors import KNeighborsClassifier
 import numpy as np
 from sklearn.metrics import classification_report, confusion_matrix
-
 from scipy.io import loadmat
 import matplotlib.pyplot as plt
 import time
@@ -17,7 +16,9 @@ def main():
     conf_mat = confusion_matrix(mat_file["testlab"], pred_digits)
     print(conf_mat)   
     print(classification_report(mat_file["testlab"], pred_digits))
- 
+    
+
+    print("CAN THIS CLASSIFY THE FIVE: ", pred_digits[8] == mat_file["testlab"][8])
     print("ERROR RATE: ", get_error_rate(conf_mat))
     print("PREDICTION TIME: ", (time.time() - pred_start_time))
 
@@ -49,15 +50,11 @@ def plot_wrongly_classified_digits(testlab, predlab, testv):
     image = np.reshape(testv[index_wrong_class[0]], (28, 28))
     plt.figure()
     plt.imshow(image, cmap='gray_r')
-    prediction = "".join(["Label: ", str(testlab[index_wrong_class[0]]), "\n Prediction: ", str(predlab[index_wrong_class[0]])])
-    plt.title(prediction)
     plt.draw()
 
     image = np.reshape(testv[index_wrong_class[1]], (28, 28))
     plt.figure()
     plt.imshow(image, cmap='gray_r')
-    prediction = "".join(["Label: ", str(testlab[index_wrong_class[1]]), "\n Prediction: ", str(predlab[index_wrong_class[1]])])
-    plt.title(prediction)
     plt.draw()
 
 def plot_correctly_classified_digits(testlab, predlab, testv):
@@ -66,21 +63,22 @@ def plot_correctly_classified_digits(testlab, predlab, testv):
         if testlab[i] == predlab[i]:
             index_correct_class.append(i)
 
-
     image = np.reshape(testv[index_correct_class[0]], (28, 28))
     plt.figure()
     plt.imshow(image, cmap='gray_r')
-    prediction = "".join(["Label: ", str(testlab[index_correct_class[0]]), "\n Prediction: ", str(predlab[index_correct_class[0]])])
-    plt.title(prediction)
     plt.draw()
 
     image = np.reshape(testv[index_correct_class[1]], (28, 28))
     plt.figure()
     plt.imshow(image, cmap='gray_r')
-    prediction = "".join(["Label: ", str(testlab[index_correct_class[1]]), "\n Prediction: ", str(predlab[index_correct_class[1]])])
-    plt.title(prediction)
     plt.draw()
 
+
+def plot_nearest_neigbour(trainv, index):
+    image = np.reshape(trainv[index], (28, 28))
+    plt.figure()
+    plt.imshow(image, cmap='gray_r')
+    plt.draw()
 
 if __name__ == '__main__':
     main()
