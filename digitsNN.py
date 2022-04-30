@@ -37,11 +37,6 @@ def main():
     plt.show()
 
 
-
-
-
-
-
 #split the test set into num_chunks layered 3d array
 def split_test_set_into_chunks(testv, chunk_size):
     num_chunks = int(len(testv)/chunk_size)
