@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from iris_training import *
 
-#File names for testing (working on macos)
+#File names for testing
 #training_first30.data
 #test_last20.data
 #training_last30.data
@@ -30,9 +30,6 @@ def main():
     print(conf_matrix)
     error_rate = get_error_rate(conf_matrix)
     print(error_rate)
-    
-
-
 
 def get_weight_from_path(path):
     W = np.loadtxt(path)
@@ -42,8 +39,6 @@ def get_predicted_values(W, X):
     G_final = W @ X.T
     predicted_values = np.argmax(G_final, axis=0)
     return predicted_values
-
-
 
 def get_conf_matrix(pred, true):
     conf_matrix = np.zeros((len(np.unique(pred)), len(np.unique(pred))))

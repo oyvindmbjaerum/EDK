@@ -26,7 +26,6 @@ def main():
 
     plt.show()
 
-
 def get_conf_matrix(pred, true):
     conf_matrix = np.zeros((len(np.unique(pred)), len(np.unique(pred))))
     conf_matrix = confusion_matrix(true, pred)
@@ -43,7 +42,6 @@ def plot_wrongly_classified_digits(testlab, predlab, testv):
     for i in range(0, len(predlab)):
         if testlab[i] != predlab[i]:
             index_wrong_class.append(i)
-
 
     image = np.reshape(testv[index_wrong_class[0]], (28, 28))
     plt.figure()
@@ -78,7 +76,6 @@ def plot_correctly_classified_digits(testlab, predlab, testv):
     prediction = "".join(["Prediction: ", str(predlab[index_correct_class[1]]), "\nLabel", str(testlab[index_correct_class[1]])])
     plt.title(prediction)
     plt.draw()
-
 
 if __name__ == '__main__':
     main()

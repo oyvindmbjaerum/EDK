@@ -8,10 +8,8 @@ def main():
     first_30_path = "training_first30.data"
     all_features = [0, 1, 2, 3]
 
-
     first_30_values, first_30_labels = get_data(first_30_path, all_features)
    
-
     plot_histograms_of_features(first_30_values, first_30_labels)
     best_3_features = [0, 2, 3]
     best_2_features = [2, 3]
@@ -89,7 +87,6 @@ def plot_histograms_of_features(values, labels):
     plt.xlabel('Sepal width [cm]')
     plt.ylabel('count')
     plt.draw()
-
 
     plt.figure()
     petal_length = reshape_data_into_classes(values[:,2], targets)

@@ -8,7 +8,6 @@ import time
 from NNclassifier import *
 from clustering_NN import *
 
-
 def main():
     data_mat_file = loadmat("data_all.mat")
 
@@ -35,7 +34,6 @@ def main():
     print("*----------------------------------------------*\n")
     plt.show()
 
-
 def classify_by_kNN(trainv, trainlab, testlab, testv, num_neighbours):
     pred_start_time = time.time()
     classifier = KNeighborsClassifier(n_neighbors = num_neighbours, metric = 'euclidean')
@@ -56,9 +54,6 @@ def cluster_training_set(trainv, trainlab, num_clusters):
     clustered_labels = generate_clustered_training_labels(clustered_training_set, np.unique(trainlab))
 
     return clustered_training_set, clustered_labels
-
-
-
 
 if __name__ == '__main__':
     main()

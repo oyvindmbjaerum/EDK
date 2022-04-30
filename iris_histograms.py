@@ -15,8 +15,6 @@ def main():
     plt.ylabel('count')
     plt.draw()
 
-
-
     plt.figure()
     sepal_width = reshape_data_into_classes(values[:,1], targets)
     plt.hist(sepal_width, bins = 20)
@@ -25,7 +23,6 @@ def main():
     plt.ylabel('count')
     plt.draw()
 
-
     plt.figure()
     petal_length = reshape_data_into_classes(values[:,2], targets)
     plt.hist(petal_length, bins = 20)
@@ -33,7 +30,6 @@ def main():
     plt.xlabel('Petal length [cm]')
     plt.ylabel('count')
     plt.draw()
-
 
     plt.figure()
     petal_width = reshape_data_into_classes(values[:,3], targets)
@@ -49,7 +45,6 @@ def reshape_data_into_classes(values, targets):
 
     class_separated_data = np.reshape(values, (np.sum(targets == 0), len(np.unique(targets))), order = 'F')
     return class_separated_data
-
 
 if __name__ == '__main__':
     main()

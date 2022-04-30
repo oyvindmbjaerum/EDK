@@ -4,10 +4,11 @@ from sklearn import preprocessing
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 
-#Working filenames for training data in macos
-#training_last30.data
+#File names for testing
 #training_first30.data
-
+#test_last20.data
+#training_last30.data
+#testing_first20.data
 
 def main():
     path = 'training_first30.data'
@@ -26,7 +27,6 @@ def main():
  
     np.savetxt('trainedonfirst30.txt', W)
     
-
 #Column 1 has most overlap, then 0, then 2
 #gets data from file and turns into one matrix for data and one for labels
 def get_data(path, features_used):
@@ -41,18 +41,18 @@ def get_target_mat(labels):
 
 #this function gives a vector where class target is 0, 1, 2 etc.
 def get_targets(labels):
-        uniq = np.unique(labels)
-        targets = np.zeros(labels.shape, dtype = 'int32')
+    uniq = np.unique(labels)
+    targets = np.zeros(labels.shape, dtype = 'int32')
 
-        for i in range(len(targets)):
-            if labels[i] == uniq[0]:
-                targets[i] = 0
-            if labels[i] == uniq[1]:
-                targets[i] = 1
-            if labels[i] == uniq[2]:
-                targets[i] = 2
+    for i in range(len(targets)):
+        if labels[i] == uniq[0]:
+            targets[i] = 0
+        if labels[i] == uniq[1]:
+            targets[i] = 1
+        if labels[i] == uniq[2]:
+            targets[i] = 2
         
-        return targets
+    return targets
         
 def normalize_data_mat(data):
     min_max_scaler = preprocessing.MinMaxScaler()
@@ -83,10 +83,10 @@ def calculate_mse_gradient(G, targets, X):
     new_matrix = (G - targets.T) * G * (1-G)
     W_new = new_matrix @ X
     return W_new
+
 def calculate_mse(G, target_mat):
     mse = mse = mean_squared_error(G, target_mat.T)
     return mse
-
 
 if __name__ == '__main__':
     main()

@@ -28,8 +28,6 @@ def main():
     print("PREDICTION TIME: ", (time.time() - pred_time))
     print("TOTAL TIME: ", (time.time() - start_time))
 
-
-
 def separate_training_values(trainv, trainlab):
     zeros = trainv[(trainlab[:, 0] == 0), :]
     ones = trainv[(trainlab[:, 0] == 1), :]
@@ -42,7 +40,6 @@ def separate_training_values(trainv, trainlab):
     eights = trainv[(trainlab[:, 0] == 8), :]
     nines = trainv[(trainlab[:, 0] == 9), :]
     return [zeros, ones, twos, threes, fours, fives, sixes, sevens, eights, nines]
-
 
 def get_clustered_training_values(classes, num_clusters):
     kmeans_0 = KMeans(n_clusters= num_clusters, random_state=0).fit(classes[0])
@@ -67,4 +64,3 @@ def generate_clustered_training_labels(clustered_training_values, unique_labels)
 
 if __name__ == '__main__':
     main()
-

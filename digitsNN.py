@@ -6,7 +6,6 @@ import time
 from iris_testing import *
 from scipy.spatial.distance import cdist
 
-
 #From the .mat file we want only the variables, none of the metadata
 #vec_size  -> number of features
 #trainv    -> values of training set
@@ -22,7 +21,6 @@ def main():
 
     chunk_size = 1000
     chunked_test_values = split_test_set_into_chunks(mat_file["testv"], chunk_size)
-
     predicted_labels, index_vec = calc_nearest_neighbour_for_chunk(chunked_test_values[0], mat_file["trainv"], mat_file["trainlab"])
     
     conf_mat = get_conf_matrix(predicted_labels, mat_file["testlab"][:chunk_size, :])
@@ -35,7 +33,6 @@ def main():
 
     print("EXECUTION TIME: ", (time.time() - start_time))
     plt.show()
-
 
 #split the test set into num_chunks layered 3d array
 def split_test_set_into_chunks(testv, chunk_size):
@@ -92,7 +89,6 @@ def plot_image(value, index):
     plt.figure()
     plt.imshow(image, cmap='gray_r')
     plt.draw()
-
 
 if __name__ == '__main__':
     main()
