@@ -69,7 +69,7 @@ def init_random_weights(values, labels):
     return W
 
 def get_discriminant_vec(W, X):
-    z = W.dot(X.T)
+    z = W @ X.T
     return sigmoid_on_matrix(z)
 
 def get_X_from_values(values):

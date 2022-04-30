@@ -73,29 +73,6 @@ def main():
 
     plt.show()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def plot_histograms_of_features(values, labels):
     targets = get_targets(labels)
     sepal_length = reshape_data_into_classes(values[:,0], targets)
