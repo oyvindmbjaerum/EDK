@@ -48,11 +48,15 @@ def plot_wrongly_classified_digits(testlab, predlab, testv):
     image = np.reshape(testv[index_wrong_class[0]], (28, 28))
     plt.figure()
     plt.imshow(image, cmap='gray_r')
+    prediction = "".join(["Prediction: ", str(predlab[index_wrong_class[0]]), "\nLabel", str(testlab[index_wrong_class[0]])])
+    plt.title(prediction)
     plt.draw()
 
     image = np.reshape(testv[index_wrong_class[1]], (28, 28))
     plt.figure()
     plt.imshow(image, cmap='gray_r')
+    prediction = "".join(["Prediction: ", str(predlab[index_wrong_class[1]]), "\nLabel", str(testlab[index_wrong_class[1]])])
+    plt.title(prediction)
     plt.draw()
 
 def plot_correctly_classified_digits(testlab, predlab, testv):
@@ -64,11 +68,15 @@ def plot_correctly_classified_digits(testlab, predlab, testv):
     image = np.reshape(testv[index_correct_class[0]], (28, 28))
     plt.figure()
     plt.imshow(image, cmap='gray_r')
+    prediction = "".join(["Prediction: ", str(predlab[index_correct_class[0]]), "\nLabel", str(testlab[index_correct_class[0]])])
+    plt.title(prediction)
     plt.draw()
 
     image = np.reshape(testv[index_correct_class[1]], (28, 28))
     plt.figure()
     plt.imshow(image, cmap='gray_r')
+    prediction = "".join(["Prediction: ", str(predlab[index_correct_class[1]]), "\nLabel", str(testlab[index_correct_class[1]])])
+    plt.title(prediction)
     plt.draw()
 
 
