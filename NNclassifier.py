@@ -17,8 +17,6 @@ def main():
     print(conf_mat)   
     print(classification_report(mat_file["testlab"], pred_digits))
     
-
-    print("CAN THIS CLASSIFY THE FIVE: ", pred_digits[8] == mat_file["testlab"][8])
     print("ERROR RATE: ", get_error_rate(conf_mat))
     print("PREDICTION TIME: ", (time.time() - pred_start_time))
 
@@ -73,12 +71,6 @@ def plot_correctly_classified_digits(testlab, predlab, testv):
     plt.imshow(image, cmap='gray_r')
     plt.draw()
 
-
-def plot_nearest_neigbour(trainv, index):
-    image = np.reshape(trainv[index], (28, 28))
-    plt.figure()
-    plt.imshow(image, cmap='gray_r')
-    plt.draw()
 
 if __name__ == '__main__':
     main()
