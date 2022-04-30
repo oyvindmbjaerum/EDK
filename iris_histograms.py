@@ -1,10 +1,10 @@
 from re import A
 import numpy as np
 import matplotlib.pyplot as plt
-from iris_classification import *
+from iris_training import *
 
 def main():
-    path = "/Users/oyvindmasdalbjaerum/SKOLEGREIER/EDK/training_first30.data"
+    path = "training_first30.data"
     values, labels = get_data(path)
 
     targets = get_targets(labels)

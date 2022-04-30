@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from iris_classification import *
+from iris_training import *
 
 #File names for testing (working on macos)
 #training_first30.data

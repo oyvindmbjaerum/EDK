@@ -29,8 +29,8 @@ def main():
 
 #Column 1 has most overlap, then 0, then 2
 #gets data from file and turns into one matrix for data and one for labels
-def get_data(path):
-    values = np.loadtxt(path, delimiter=',', usecols=[0, 1, 2, 3], ndmin = 2) #when reading only one column, we need to force it into a 2d-array
+def get_data(path, features_used):
+    values = np.loadtxt(path, delimiter=',', usecols=features_used, ndmin = 2) #when reading only one column, we need to force it into a 2d-array
     labels = np.loadtxt(path, delimiter=',', usecols=[4], dtype = str)
     return values, labels
 
