@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from iris_training import *
 
 def main():
-    all_features = [0, 1, 2, 3]
+    all_features = [0, 2, 3]
     path = 'training_first30.data'
     data, labels = get_data(path, all_features)
     targets = get_target_mat(labels)
@@ -26,7 +26,6 @@ def main():
 
     for i in range(0, iterations):
         G = get_discriminant_vec(W, X)
-        print(G.shape)
         mse_grad = calculate_mse_gradient(G, targets, X)
         W = W - alpha * mse_grad
         mse[i] = calculate_mse(G, targets)
@@ -34,6 +33,7 @@ def main():
         G_test = get_discriminant_vec(W, X_test)
         test_mse[i] = calculate_mse(G_test, test_targets)
 
+    print(np.argmin(test_mse))
     plt.figure()
     plt.plot(mse)
     plt.plot(test_mse)

@@ -14,8 +14,8 @@ def main():
     best_3_features = [0, 2, 3]
     best_2_features = [2, 3]
     best_feature = [3]
-
-    W_first_30 = train_model(first_30_values, first_30_labels)
+    iterations = 100000
+    W_first_30 = train_model(first_30_values, first_30_labels, iterations)
     print("*----------------------------------------------*")
     print("Model trained with first 30 samples and tested with first 30 samples")
     test_model(W_first_30, first_30_values, first_30_labels)
@@ -30,7 +30,7 @@ def main():
 
     last_30_path = "training_last30.data"
     last_30_values, last_30_labels = get_data(last_30_path, all_features)
-    W_last_30 = train_model(last_30_values, last_30_labels)
+    W_last_30 = train_model(last_30_values, last_30_labels, iterations)
 
     print("*----------------------------------------------*")
     print("Model trained with last 30 samples and tested with last 30 samples")
@@ -46,7 +46,7 @@ def main():
     print("*----------------------------------------------*\n")
 
     values_3_features, labels_3_features = get_data(first_30_path, best_3_features)
-    W_3_features = train_model(values_3_features, labels_3_features)
+    W_3_features = train_model(values_3_features, labels_3_features, iterations)
     values_3_features_test, labels_3_features_test = get_data(last_20_path, best_3_features)
     print("*----------------------------------------------*")
     print("Model trained with 3 features of first 30 samples and tested with last 20 samples")
@@ -54,7 +54,7 @@ def main():
     print("*----------------------------------------------*\n")
 
     values_2_features, labels_2_features = get_data(first_30_path, best_2_features)
-    W_2_features = train_model(values_2_features, labels_2_features)
+    W_2_features = train_model(values_2_features, labels_2_features, iterations)
     values_2_features_test, labels_2_features_test = get_data(last_20_path, best_2_features)
     print("*----------------------------------------------*")
     print("Model trained with 2 features of first 30 samples and tested with last 20 samples")
@@ -62,7 +62,7 @@ def main():
     print("*----------------------------------------------*\n")
     
     values_1_feature, labels_1_feature = get_data(first_30_path, best_feature)
-    W_1_feature = train_model(values_1_feature, labels_1_feature)
+    W_1_feature = train_model(values_1_feature, labels_1_feature, iterations)
     values_1_feature_test, labels_1_feature_test = get_data(last_20_path, best_feature)
     print("*----------------------------------------------*")
     print("Model trained with 1 features of first 30 samples and tested with last 20 samples")
@@ -103,13 +103,12 @@ def plot_histograms_of_features(values, labels):
     plt.xlabel('Petal width [cm]')
     plt.ylabel('count')
 
-def train_model(training_values, labels):
+def train_model(training_values, labels, iterations):
     targets = get_target_mat(labels)
     W = init_random_weights(training_values, labels)
     alpha = 0.25
     norm_data = normalize_data_mat(training_values)
     X = get_X_from_values(norm_data)
-    iterations = 100000
 
     for i in range(0, iterations):
         G = get_discriminant_vec(W, X)
