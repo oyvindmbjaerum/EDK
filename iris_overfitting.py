@@ -26,6 +26,7 @@ def main():
 
     for i in range(0, iterations):
         G = get_discriminant_vec(W, X)
+        print(G.shape)
         mse_grad = calculate_mse_gradient(G, targets, X)
         W = W - alpha * mse_grad
         mse[i] = calculate_mse(G, targets)

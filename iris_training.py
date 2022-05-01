@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 def main():
     all_features = [0, 1, 2, 3]
     path = 'training_first30.data'
-    data, labels = get_data(path, all_features)
+    data, labels = get_data(path, all_features) #Choose which features you want to use here
     targets = get_target_mat(labels)
     W = init_random_weights(data, labels)
     alpha = 0.25
