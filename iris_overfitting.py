@@ -14,7 +14,7 @@ def main():
     alpha = 0.25
     norm_data = normalize_data_mat(data)
     X = get_X_from_values(norm_data)
-    iterations = 100000
+    max_iterations = 100000
 
     testing_path = "test_last20.data"
 
@@ -24,7 +24,7 @@ def main():
     test_mse = np.zeros((iterations, ))
     X_test = get_X_from_values(normalize_data_mat(test_data))
 
-    for i in range(0, iterations):
+    for i in range(0, max_iterations):
         G = get_discriminant_vec(W, X)
         mse_grad = calculate_mse_gradient(G, targets, X)
         W = W - alpha * mse_grad
