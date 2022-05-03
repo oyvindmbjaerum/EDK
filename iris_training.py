@@ -18,11 +18,16 @@ def main():
     alpha = 0.25
     norm_data = normalize_data_mat(data)
     X = get_X_from_values(norm_data)
-    iterations = 100000
+    iterations = 10000
+    tolerance = 0.0001
 
     for i in range(0, iterations):
         G = get_discriminant_vec(W, X)
         mse_grad = calculate_mse_gradient(G, targets, X)
+        if np.max(alpha * mse_grad) < tolerance and np.min(alpha * mse_grad) > tolerance:
+            break
+        
+        
         W = W - alpha * mse_grad
  
     np.savetxt('trainedonfirst30.txt', W)
