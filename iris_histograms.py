@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 from iris_training import *
 
 def main():
+    all_features = [0, 1, 2, 3]
     path = "training_first30.data"
-    values, labels = get_data(path)
+    values, labels = get_data(path, all_features)
 
     targets = get_targets(labels)
     sepal_length = reshape_data_into_classes(values[:,0], targets)
